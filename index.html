@@ -10,9 +10,9 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-–gold: #C9A84C;
-–gold-light: #E8C97A;
-–gold-dim: #8B6914;
+–gold: #C9943C;
+–gold-light: #E8B860;
+–gold-dim: #9B7020;
 –deep: #060404;
 –dark: #0D0906;
 }
@@ -83,13 +83,13 @@ to   { opacity: 1; transform: scale(1); }
 }
 
 .mark img {
-width: min(260px, 62vw);
+width: min(300px, 72vw);
 height: auto;
 display: block;
 filter:
-drop-shadow(0 0 30px rgba(200,80,10,0.6))
-drop-shadow(0 0 70px rgba(200,80,10,0.25))
-drop-shadow(0 0 8px rgba(13,80,140,0.5));
+drop-shadow(0 0 35px rgba(210,90,5,0.7))
+drop-shadow(0 0 80px rgba(210,90,5,0.3))
+drop-shadow(0 0 10px rgba(13,80,140,0.5));
 }
 
 /* ── TITLE BLOCK ── */
@@ -115,23 +115,23 @@ margin-bottom: 0.85rem;
 
 .saga-title {
 font-family: ‘Cinzel Decorative’, serif;
-font-size: clamp(1.3rem, 4.5vw, 2.6rem);
+font-size: clamp(1.4rem, 5vw, 2.8rem);
 font-weight: 700;
-color: #E8C97A;
+color: #E8B860;
 letter-spacing: 0.07em;
 line-height: 1.15;
 text-shadow:
-0 0 30px rgba(232,201,122,0.6),
-0 0 60px rgba(201,168,76,0.3),
-0 0 100px rgba(201,168,76,0.15);
+0 0 30px rgba(232,184,96,0.7),
+0 0 60px rgba(201,148,60,0.35),
+0 0 100px rgba(201,148,60,0.15);
 margin-bottom: 0.45rem;
 }
 
 .series-line {
 font-family: ‘Cinzel’, serif;
-font-size: clamp(0.55rem, 1.5vw, 0.75rem);
-letter-spacing: 0.3em;
-color: #C9A84C;
+font-size: clamp(0.6rem, 1.6vw, 0.8rem);
+letter-spacing: 0.4em;
+color: #C9943C;
 text-transform: uppercase;
 }
 
@@ -165,7 +165,7 @@ visibility: visible;
 font-family: ‘EB Garamond’, Georgia, ‘Times New Roman’, serif;
 font-style: italic;
 font-size: clamp(1rem, 2.8vw, 1.35rem);
-color: #E8C97A;
+color: #D4A843;
 text-align: center;
 letter-spacing: 0.02em;
 line-height: 1.4;
@@ -232,22 +232,35 @@ pointer-events: none;
 .follow-prompt.show { opacity: 1; }
 .follow-prompt.hide { opacity: 0; }
 
-/* ── PARTICLES ── */
+/* ── EMBER SPARKS ── */
 .particles {
 position: fixed; inset: 0; z-index: 4;
 pointer-events: none; overflow: hidden;
 }
-.particle {
+.ember {
 position: absolute;
 border-radius: 50%;
-animation: floatup linear infinite;
+animation: ember-rise linear infinite;
 opacity: 0;
 }
-@keyframes floatup {
-0%   { transform: translateY(105vh) translateX(0);  opacity: 0; }
-8%   { opacity: var(–peak); }
-92%  { opacity: calc(var(–peak) * 0.4); }
-100% { transform: translateY(-15vh) translateX(var(–drift)); opacity: 0; }
+@keyframes ember-rise {
+0%   {
+transform: translateY(100vh) translateX(0) scale(1);
+opacity: 0;
+}
+5%   { opacity: var(–peak); }
+40%  {
+transform: translateY(60vh) translateX(calc(var(–drift) * 0.4)) scale(0.9);
+opacity: var(–peak);
+}
+75%  {
+transform: translateY(25vh) translateX(var(–drift)) scale(0.5);
+opacity: calc(var(–peak) * 0.5);
+}
+100% {
+transform: translateY(-10vh) translateX(calc(var(–drift) * 1.2)) scale(0.1);
+opacity: 0;
+}
 }
 
 /* subtle horizontal scan line */
@@ -373,33 +386,29 @@ function rotate() {
 
 setInterval(rotate, 5500);
 
-// ── PARTICLES ──
-const container = document.getElementById('particles');
-const colors = [
-  'rgba(201,168,76,VAR)',
-  'rgba(220,100,20,VAR)',
-  'rgba(60,120,200,VAR)',
+// ── EMBER SPARKS ──
+var container = document.getElementById('particles');
+var emberColors = [
+  {r:255,g:140,b:20},
+  {r:255,g:90, b:10},
+  {r:255,g:200,b:50},
+  {r:210,g:148,b:60},
+  {r:30, g:100,b:200},
 ];
-for (let i = 0; i < 32; i++) {
-  const p = document.createElement('div');
-  p.className = 'particle';
-  const x     = Math.random() * 100;
-  const dur   = 14 + Math.random() * 22;
-  const delay = Math.random() * 25;
-  const drift = (Math.random() - 0.5) * 100;
-  const size  = Math.random() < 0.25 ? 2 : 1;
-  const peak  = 0.2 + Math.random() * 0.5;
-  const col   = colors[Math.floor(Math.random() * colors.length)].replace('VAR', peak.toFixed(2));
-  p.style.cssText = `
-    left:${x}%;
-    width:${size}px; height:${size}px;
-    background:${col};
-    animation-duration:${dur}s;
-    animation-delay:-${delay}s;
-    --drift:${drift}px;
-    --peak:${peak};
-  `;
-  container.appendChild(p);
+for (var i = 0; i < 45; i++) {
+  var em = document.createElement('div');
+  em.className = 'ember';
+  var x     = 15 + Math.random() * 70;
+  var dur   = 6 + Math.random() * 12;
+  var delay = Math.random() * 18;
+  var drift = (Math.random() - 0.5) * 140;
+  var size  = 1.5 + Math.random() * 3.5;
+  var peak  = 0.5 + Math.random() * 0.5;
+  var c     = emberColors[Math.floor(Math.random() * emberColors.length)];
+  var col   = 'rgba('+c.r+','+c.g+','+c.b+','+peak.toFixed(2)+')';
+  var glow  = 'rgba('+c.r+','+c.g+','+c.b+',0.4)';
+  em.style.cssText = 'left:'+x+'%;width:'+size+'px;height:'+size+'px;background:'+col+';box-shadow:0 0 '+(size*2)+'px '+size+'px '+glow+';animation-duration:'+dur+'s;animation-delay:-'+delay+'s;--drift:'+drift+'px;--peak:'+peak+';';
+  container.appendChild(em);
 }
 </script>
 
