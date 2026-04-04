@@ -200,7 +200,7 @@ opacity: 0;
 font-family: ‘Cinzel’, serif;
 font-size: clamp(0.45rem, 1.2vw, 0.6rem);
 letter-spacing: 0.6em;
-color: rgba(201,168,76,0.8);
+color: rgba(201,148,60,0.8);
 text-transform: uppercase;
 margin-bottom: 0.4rem;
 }
@@ -208,29 +208,26 @@ margin-bottom: 0.4rem;
 .author-name {
 font-family: ‘EB Garamond’, Georgia, serif;
 font-size: clamp(0.8rem, 2vw, 1rem);
-color: rgba(201,168,76,0.65);
+color: rgba(201,148,60,0.65);
 letter-spacing: 0.1em;
+margin-bottom: 0.6rem;
 }
 
-/* ── FOLLOW PROMPT ── */
-.follow-prompt {
-position: fixed;
-bottom: clamp(1.2rem, 4vw, 2.2rem);
-left: 50%;
-transform: translateX(-50%);
-z-index: 20;
+.x-handle {
+display: block;
 font-family: ‘Cinzel’, serif;
 font-size: clamp(0.45rem, 1.2vw, 0.58rem);
 letter-spacing: 0.45em;
-color: rgba(201,168,76,0.55);
+color: rgba(201,148,60,0.55);
 text-transform: uppercase;
-white-space: nowrap;
-opacity: 0;
-transition: opacity 1.8s ease;
-pointer-events: none;
+text-decoration: none;
+transition: color 0.4s ease, letter-spacing 0.4s ease;
+margin-top: 0.3rem;
 }
-.follow-prompt.show { opacity: 1; }
-.follow-prompt.hide { opacity: 0; }
+.x-handle:hover {
+color: rgba(232,184,96,0.9);
+letter-spacing: 0.55em;
+}
 
 /* ── EMBER SPARKS ── */
 .particles {
@@ -325,13 +322,10 @@ to   { top: 100vh; }
   <div class="coming">
     <p class="coming-label">Coming Soon</p>
     <p class="author-name">noahelias.org</p>
+    <a class="x-handle" href="https://x.com/noaheliasbooks" target="_blank" rel="noopener">Follow @noaheliasbooks</a>
   </div>
 
 </div>
-
-<!-- SUBTLE FOLLOW PROMPT — appears after 4th rotation, fades in and out once -->
-
-<div class="follow-prompt" id="followPrompt">Follow @noaheliasbooks</div>
 
 <script>
 // ── TAGLINES ──
@@ -352,35 +346,21 @@ const taglines = [
 var current = 0;
 var rotationCount = 0;
 var el = document.getElementById('tagline');
-var followPrompt = document.getElementById('followPrompt');
 
 // Make sure first tagline is set
 el.textContent = taglines[0];
 el.className = 'tagline visible';
 
 function rotate() {
-  // Start leaving
   el.className = 'tagline leaving';
-
   setTimeout(function() {
     current = (current + 1) % taglines.length;
     rotationCount++;
     el.textContent = taglines[current];
     el.className = 'tagline entering';
-
     setTimeout(function() {
       el.className = 'tagline visible';
     }, 50);
-
-    // Show follow prompt after 4th rotation once only
-    if (rotationCount === 4) {
-      setTimeout(function() {
-        followPrompt.classList.add('show');
-        setTimeout(function() {
-          followPrompt.classList.remove('show');
-        }, 4000);
-      }, 2000);
-    }
   }, 900);
 }
 
