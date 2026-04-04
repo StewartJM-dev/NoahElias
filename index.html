@@ -198,17 +198,17 @@ opacity: 0;
 
 .coming-label {
 font-family: ‘Cinzel’, serif;
-font-size: clamp(0.45rem, 1.2vw, 0.6rem);
-letter-spacing: 0.6em;
-color: rgba(201,148,60,0.8);
+font-size: clamp(0.5rem, 1.3vw, 0.65rem);
+letter-spacing: 0.5em;
+color: rgba(210,160,60,0.9);
 text-transform: uppercase;
 margin-bottom: 0.4rem;
 }
 
 .author-name {
 font-family: ‘EB Garamond’, Georgia, serif;
-font-size: clamp(0.8rem, 2vw, 1rem);
-color: rgba(201,148,60,0.65);
+font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+color: rgba(220,170,70,0.85);
 letter-spacing: 0.1em;
 margin-bottom: 0.6rem;
 }
@@ -216,16 +216,16 @@ margin-bottom: 0.6rem;
 .x-handle {
 display: block;
 font-family: ‘Cinzel’, serif;
-font-size: clamp(0.45rem, 1.2vw, 0.58rem);
+font-size: clamp(0.5rem, 1.3vw, 0.65rem);
 letter-spacing: 0.45em;
-color: rgba(201,148,60,0.55);
+color: rgba(210,160,60,0.85);
 text-transform: uppercase;
 text-decoration: none;
 transition: color 0.4s ease, letter-spacing 0.4s ease;
 margin-top: 0.3rem;
 }
 .x-handle:hover {
-color: rgba(232,184,96,0.9);
+color: rgba(240,200,90,1);
 letter-spacing: 0.55em;
 }
 
@@ -238,26 +238,23 @@ pointer-events: none; overflow: hidden;
 position: absolute;
 border-radius: 50%;
 animation: ember-rise linear infinite;
-opacity: 0;
 }
 @keyframes ember-rise {
-0%   {
-transform: translateY(100vh) translateX(0) scale(1);
-opacity: 0;
+0%   { transform: translateY(100vh) translateX(0)    scale(1);   opacity: 0; }
+8%   { opacity: 1; }
+50%  { transform: translateY(50vh)  translateX(30px)  scale(0.7); opacity: 0.7; }
+85%  { transform: translateY(15vh)  translateX(60px)  scale(0.3); opacity: 0.3; }
+100% { transform: translateY(-5vh)  translateX(80px)  scale(0.1); opacity: 0; }
 }
-5%   { opacity: var(–peak); }
-40%  {
-transform: translateY(60vh) translateX(calc(var(–drift) * 0.4)) scale(0.9);
-opacity: var(–peak);
+.ember.left {
+animation-name: ember-rise-left;
 }
-75%  {
-transform: translateY(25vh) translateX(var(–drift)) scale(0.5);
-opacity: calc(var(–peak) * 0.5);
-}
-100% {
-transform: translateY(-10vh) translateX(calc(var(–drift) * 1.2)) scale(0.1);
-opacity: 0;
-}
+@keyframes ember-rise-left {
+0%   { transform: translateY(100vh) translateX(0)     scale(1);   opacity: 0; }
+8%   { opacity: 1; }
+50%  { transform: translateY(50vh)  translateX(-30px) scale(0.7); opacity: 0.7; }
+85%  { transform: translateY(15vh)  translateX(-60px) scale(0.3); opacity: 0.3; }
+100% { transform: translateY(-5vh)  translateX(-80px) scale(0.1); opacity: 0; }
 }
 
 /* subtle horizontal scan line */
@@ -369,25 +366,30 @@ setInterval(rotate, 5500);
 // ── EMBER SPARKS ──
 var container = document.getElementById('particles');
 var emberColors = [
-  {r:255,g:140,b:20},
-  {r:255,g:90, b:10},
-  {r:255,g:200,b:50},
-  {r:210,g:148,b:60},
-  {r:30, g:100,b:200},
+  'rgba(255,140,20,',
+  'rgba(255,90,10,',
+  'rgba(255,200,50,',
+  'rgba(210,148,60,',
+  'rgba(30,100,200,',
 ];
-for (var i = 0; i < 45; i++) {
+for (var i = 0; i < 40; i++) {
   var em = document.createElement('div');
-  em.className = 'ember';
-  var x     = 15 + Math.random() * 70;
-  var dur   = 6 + Math.random() * 12;
-  var delay = Math.random() * 18;
-  var drift = (Math.random() - 0.5) * 140;
-  var size  = 1.5 + Math.random() * 3.5;
-  var peak  = 0.5 + Math.random() * 0.5;
-  var c     = emberColors[Math.floor(Math.random() * emberColors.length)];
-  var col   = 'rgba('+c.r+','+c.g+','+c.b+','+peak.toFixed(2)+')';
-  var glow  = 'rgba('+c.r+','+c.g+','+c.b+',0.4)';
-  em.style.cssText = 'left:'+x+'%;width:'+size+'px;height:'+size+'px;background:'+col+';box-shadow:0 0 '+(size*2)+'px '+size+'px '+glow+';animation-duration:'+dur+'s;animation-delay:-'+delay+'s;--drift:'+drift+'px;--peak:'+peak+';';
+  em.className = i % 3 === 0 ? 'ember left' : 'ember';
+  var x    = 10 + Math.random() * 80;
+  var dur  = 5 + Math.random() * 10;
+  var del  = Math.random() * 15;
+  var size = 2 + Math.random() * 4;
+  var op   = (0.5 + Math.random() * 0.5).toFixed(2);
+  var col  = emberColors[Math.floor(Math.random() * emberColors.length)];
+  var bg   = col + op + ')';
+  var glow = col + '0.35)';
+  em.style.left            = x + '%';
+  em.style.width           = size + 'px';
+  em.style.height          = size + 'px';
+  em.style.background      = bg;
+  em.style.boxShadow       = '0 0 ' + (size * 2.5) + 'px ' + size + 'px ' + glow;
+  em.style.animationDuration  = dur + 's';
+  em.style.animationDelay     = '-' + del + 's';
   container.appendChild(em);
 }
 </script>
