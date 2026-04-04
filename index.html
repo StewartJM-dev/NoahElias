@@ -83,10 +83,9 @@ to   { opacity: 1; transform: scale(1); }
 }
 
 .mark img {
-width: min(200px, 48vw);
+width: min(260px, 62vw);
 height: auto;
 display: block;
-mix-blend-mode: lighten;
 filter:
 drop-shadow(0 0 30px rgba(200,80,10,0.6))
 drop-shadow(0 0 70px rgba(200,80,10,0.25))
@@ -152,30 +151,33 @@ to   { opacity: 1; }
 
 /* ── ROTATING TAGLINE ── */
 .tagline-wrap {
-height: clamp(2.2rem, 5.5vw, 3.2rem);
+height: clamp(2.8rem, 6vw, 4rem);
 display: flex; align-items: center; justify-content: center;
-overflow: hidden;
 max-width: min(640px, 90vw);
+width: 100%;
 margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
 position: relative;
 opacity: 1;
+visibility: visible;
 }
 
 .tagline {
-font-family: ‘EB Garamond’, Georgia, serif;
+font-family: ‘EB Garamond’, Georgia, ‘Times New Roman’, serif;
 font-style: italic;
-font-size: clamp(0.9rem, 2.5vw, 1.25rem);
-color: rgba(232,201,122,0.85);
+font-size: clamp(1rem, 2.8vw, 1.35rem);
+color: #E8C97A;
 text-align: center;
-letter-spacing: 0.015em;
+letter-spacing: 0.02em;
 line-height: 1.4;
 position: absolute;
 width: min(640px, 90vw);
+opacity: 1;
+transform: translateY(0);
 transition: opacity 0.9s ease, transform 0.9s ease;
 }
-.tagline.visible  { opacity: 1;  transform: translateY(0); }
-.tagline.entering { opacity: 0;  transform: translateY(12px); }
-.tagline.leaving  { opacity: 0;  transform: translateY(-12px); }
+.tagline.leaving  { opacity: 0; transform: translateY(-12px); }
+.tagline.entering { opacity: 0; transform: translateY(12px); }
+.tagline.visible  { opacity: 1; transform: translateY(0); }
 
 /* ── BOTTOM RULE ── */
 .rule2 {
@@ -298,7 +300,7 @@ to   { top: 100vh; }
   <!-- ROTATING TAGLINE -->
 
   <div class="tagline-wrap">
-    <p class="tagline visible" id="tagline"></p>
+    <p class="tagline visible" id="tagline">This is not the fairy tale you were told.</p>
   </div>
 
   <!-- SECOND RULE -->
@@ -334,37 +336,37 @@ const taglines = [
   "History does not repeat. It continues.",
 ];
 
-let current = 0;
-let rotationCount = 0;
-const el = document.getElementById('tagline');
-const followPrompt = document.getElementById('followPrompt');
-el.textContent = taglines[0];
+var current = 0;
+var rotationCount = 0;
+var el = document.getElementById('tagline');
+var followPrompt = document.getElementById('followPrompt');
 
-// Show follow prompt once — briefly — after the 4th rotation
-function showFollowPrompt() {
-  followPrompt.classList.add('show');
-  setTimeout(() => {
-    followPrompt.classList.remove('show');
-    followPrompt.classList.add('hide');
-  }, 4000);
-}
+// Make sure first tagline is set
+el.textContent = taglines[0];
+el.className = 'tagline visible';
 
 function rotate() {
-  el.classList.remove('visible');
-  el.classList.add('leaving');
-  setTimeout(() => {
+  // Start leaving
+  el.className = 'tagline leaving';
+
+  setTimeout(function() {
     current = (current + 1) % taglines.length;
     rotationCount++;
     el.textContent = taglines[current];
-    el.classList.remove('leaving');
-    el.classList.add('entering');
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      el.classList.remove('entering');
-      el.classList.add('visible');
-    }));
-    // Show follow prompt after 4th rotation — once only
+    el.className = 'tagline entering';
+
+    setTimeout(function() {
+      el.className = 'tagline visible';
+    }, 50);
+
+    // Show follow prompt after 4th rotation once only
     if (rotationCount === 4) {
-      setTimeout(showFollowPrompt, 2000);
+      setTimeout(function() {
+        followPrompt.classList.add('show');
+        setTimeout(function() {
+          followPrompt.classList.remove('show');
+        }, 4000);
+      }, 2000);
     }
   }, 900);
 }
