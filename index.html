@@ -1,375 +1,181 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Noah Elias — A Saga of Water and Fire</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, ::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-–gold: #D4AF37;
-–gold-light: #E8C96A;
-–gold-dim: #9B7A20;
-–deep: #060404;
-–dark: #0D0906;
+  --gold: #D4AF37;
+  --gold-light: #E8C96A;
+  --gold-dim: #9B7A20;
+  --deep: #060404;
+  --dark: #0D0906;
 }
 
 html, body {
-width: 100%; height: 100%;
-overflow: hidden;
-background: var(–deep);
-color: var(–gold-light);
-font-family: ‘EB Garamond’, Georgia, serif;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--deep);
+  color: var(--gold-light);
+  font-family: 'EB Garamond', Georgia, serif;
 }
 
-/* ── BACKGROUND ── */
+/ BACKGROUND /
 .bg {
-position: fixed; inset: 0; z-index: 0;
-background:
-radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,34,51,0.5) 0%, transparent 60%),
-radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(80,25,0,0.25) 0%, transparent 55%),
-radial-gradient(ellipse 100% 100% at 50% 50%, #0D0906 0%, #060404 100%);
+  position: fixed; inset: 0; z-index: 0;
+  background:
+  radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,34,51,0.5) 0%, transparent 60%),
+  radial-gradient(ellipse 60% 40% at 50% 0%, rgba(80,25,0,0.25) 0%, transparent 55%),
+  radial-gradient(ellipse 100% 100% at 50% 50%, #0D0906 0%, #060404 100%);
 }
 
-/* fire glow from mark area */
 .fire-ambient {
-position: fixed;
-top: 0; left: 0; right: 0; bottom: 0;
-z-index: 1;
-background: radial-gradient(ellipse 40% 35% at 50% 28%,
-rgba(180,70,5,0.07) 0%,
-transparent 100%);
-pointer-events: none;
-animation: ambientpulse 8s ease-in-out infinite;
+  position: fixed; inset: 0; z-index: 1;
+  background: radial-gradient(ellipse 40% 35% at 50% 28%, rgba(180,70,5,0.07), transparent);
+  animation: ambientpulse 8s ease-in-out infinite;
 }
 @keyframes ambientpulse {
-0%,100% { opacity: 0.6; }
-50%      { opacity: 1; }
+  0%,100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-/* grain */
 .grain {
-position: fixed; inset: 0; z-index: 2;
-opacity: 0.035;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.85’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
-pointer-events: none;
+  position: fixed; inset: 0; z-index: 2;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ── STAGE ── */
+/ STAGE /
 .stage {
-position: fixed; inset: 0; z-index: 10;
-display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-padding: 1.5rem;
-padding-top: 0;
-margin-top: -4vh;
-gap: 0;
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+  margin-top: -4vh;
 }
 
-/* ── MARK IMAGE ── */
+/ MARK /
 .mark {
-animation: markfade 2.5s ease-out forwards;
-opacity: 0;
-margin-bottom: clamp(0.6rem, 2vw, 1.2rem);
-position: relative;
+  opacity: 0;
+  animation: markfade 2.5s ease-out forwards;
 }
+
 @keyframes markfade {
-from { opacity: 0; transform: scale(0.9); }
-to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-.mark img {
-width: min(260px, 62vw);
-height: auto;
-display: block;
-animation: markfloat 6s ease-in-out 2.5s infinite;
-filter:
-drop-shadow(0 0 30px rgba(210,90,5,0.65))
-drop-shadow(0 0 70px rgba(210,90,5,0.25))
-drop-shadow(0 0 8px rgba(13,80,140,0.45));
+.mark-shell {
+  position: relative;
+  width: min(260px, 62vw);
+  animation: float 6s ease-in-out infinite;
 }
 
-@keyframes markfloat {
-0%,100% { transform: translateY(0px); }
-50%     { transform: translateY(-8px); }
+.mark-base {
+  width: 100%;
+  display: block;
+  z-index: 3;
+  position: relative;
+  animation: flamecore 2.8s ease-in-out infinite;
 }
 
-/* ── TITLE BLOCK ── */
-.title-block {
-text-align: center;
-margin-bottom: clamp(0.8rem, 2vw, 1.5rem);
-animation: rise 2.5s ease-out 0.5s forwards;
-opacity: 0;
-}
-@keyframes rise {
-from { opacity: 0; transform: translateY(10px); }
-to   { opacity: 1; transform: translateY(0); }
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
 }
 
+@keyframes flamecore {
+  0%,100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.06) saturate(1.08); }
+}
+
+/ GLOW /
+.mark-glow {
+  position: absolute;
+  inset: 10%;
+  background: radial-gradient(circle, rgba(255,140,20,0.25), transparent 70%);
+  filter: blur(20px);
+  animation: glow 5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/ SHIMMER /
+.mark-shimmer::before {
+  content: "";
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  left: -40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 8s infinite;
+}
+
+@keyframes shimmer {
+  0%,70%,100% { left: -40%; opacity: 0; }
+  20% { opacity: 0.6; }
+  30% { left: 110%; opacity: 0; }
+}
+
+/ HEAT /
+.mark-heat {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  width: 20%;
+  height: 20%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255,150,50,0.3), transparent);
+  filter: blur(10px);
+  animation: heat 2s infinite;
+}
+
+@keyframes heat {
+  0%,100% { transform: translateX(-50%) scaleY(1); }
+  50% { transform: translateX(-50%) scaleY(1.2); }
+}
+
+/ TEXT */
 .saga-title {
-font-family: ‘Cinzel’, serif;
-font-size: clamp(1.5rem, 5.5vw, 3rem);
-font-weight: 600;
-color: #D4AF37;
-letter-spacing: 0.08em;
-line-height: 1.2;
-text-shadow:
-0 0 30px rgba(212,175,55,0.7),
-0 0 60px rgba(212,175,55,0.3),
-0 0 100px rgba(212,175,55,0.12);
-margin-bottom: 0.4rem;
-}
-
-.series-line {
-font-family: ‘Cinzel’, serif;
-font-size: clamp(0.6rem, 1.6vw, 0.8rem);
-letter-spacing: 0.4em;
-color: #B8962E;
-text-transform: uppercase;
-}
-
-/* ── RULE ── */
-.rule {
-width: min(220px, 55vw);
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
-margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-animation: rulefade 2.5s ease-out 1s forwards;
-opacity: 0;
-}
-@keyframes rulefade {
-from { opacity: 0; }
-to   { opacity: 1; }
-}
-
-/* ── ROTATING TAGLINE ── */
-.tagline-wrap {
-height: clamp(2.8rem, 6vw, 4rem);
-display: flex; align-items: center; justify-content: center;
-max-width: min(640px, 90vw);
-width: 100%;
-margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-position: relative;
-opacity: 1;
-visibility: visible;
-}
-
-.tagline {
-font-family: ‘EB Garamond’, Georgia, ‘Times New Roman’, serif;
-font-style: italic;
-font-size: clamp(1rem, 2.8vw, 1.35rem);
-color: #D4A843;
-text-align: center;
-letter-spacing: 0.02em;
-line-height: 1.4;
-position: absolute;
-width: min(640px, 90vw);
-opacity: 1;
-transform: translateY(0);
-transition: opacity 0.9s ease, transform 0.9s ease;
-}
-.tagline.leaving  { opacity: 0; transform: translateY(-12px); }
-.tagline.entering { opacity: 0; transform: translateY(12px); }
-.tagline.visible  { opacity: 1; transform: translateY(0); }
-
-/* ── BOTTOM RULE ── */
-.rule2 {
-width: min(160px, 40vw);
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
-margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-animation: rulefade 2.5s ease-out 1.8s forwards;
-opacity: 0;
-}
-
-/* ── COMING SOON ── */
-.coming {
-text-align: center;
-animation: rise 2.5s ease-out 2s forwards;
-opacity: 0;
-}
-
-.coming-label {
-font-family: ‘Cinzel’, serif;
-font-size: clamp(0.5rem, 1.3vw, 0.65rem);
-letter-spacing: 0.5em;
-color: rgba(210,160,60,0.9);
-text-transform: uppercase;
-margin-bottom: 0.4rem;
-}
-
-.author-name {
-font-family: ‘EB Garamond’, Georgia, serif;
-font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-color: rgba(220,170,70,0.85);
-letter-spacing: 0.1em;
-margin-bottom: 0.6rem;
-}
-
-.x-handle {
-display: block;
-font-family: ‘Cinzel’, serif;
-font-size: clamp(0.5rem, 1.3vw, 0.65rem);
-letter-spacing: 0.45em;
-color: rgba(210,160,60,0.85);
-text-transform: uppercase;
-text-decoration: none;
-transition: color 0.4s ease, letter-spacing 0.4s ease;
-margin-top: 0.3rem;
-}
-.x-handle:hover {
-color: rgba(240,200,90,1);
-letter-spacing: 0.55em;
-}
-
-/* ── EMBER SPARKS ── */
-.particles {
-position: fixed; inset: 0; z-index: 4;
-pointer-events: none; overflow: hidden;
-}
-.ember {
-position: absolute;
-border-radius: 50%;
-animation: ember-rise linear infinite;
-}
-@keyframes ember-rise {
-0%   { transform: translateY(100vh) translateX(0)    scale(1);   opacity: 0; }
-8%   { opacity: 1; }
-50%  { transform: translateY(50vh)  translateX(30px)  scale(0.7); opacity: 0.7; }
-85%  { transform: translateY(15vh)  translateX(60px)  scale(0.3); opacity: 0.3; }
-100% { transform: translateY(-5vh)  translateX(80px)  scale(0.1); opacity: 0; }
-}
-.ember.left {
-animation-name: ember-rise-left;
-}
-@keyframes ember-rise-left {
-0%   { transform: translateY(100vh) translateX(0)     scale(1);   opacity: 0; }
-8%   { opacity: 1; }
-50%  { transform: translateY(50vh)  translateX(-30px) scale(0.7); opacity: 0.7; }
-85%  { transform: translateY(15vh)  translateX(-60px) scale(0.3); opacity: 0.3; }
-100% { transform: translateY(-5vh)  translateX(-80px) scale(0.1); opacity: 0; }
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  text-align: center;
+  margin-top: 1rem;
 }
 
 </style>
 </head>
+
 <body>
 
 <div class="bg"></div>
 <div class="fire-ambient"></div>
 <div class="grain"></div>
-<div class="particles" id="particles"></div>
 
 <div class="stage">
 
-  <!-- THE MARK -->
-
   <div class="mark">
-    <img src="ne_mark.png" alt="Noah Elias — Water and Fire">
+    <div class="mark-shell">
+      <img class="mark-base" src="ne_mark.png">
+      <div class="mark-glow"></div>
+      <div class="mark-shimmer"></div>
+      <div class="mark-heat"></div>
+    </div>
   </div>
 
-  <!-- TITLE -->
-
-  <div class="title-block">
-    <h1 class="saga-title">A Saga of<br>Water and Fire</h1>
-    <p class="series-line">Noah Elias</p>
-  </div>
-
-  <!-- DIVIDER -->
-
-  <div class="rule"></div>
-
-  <!-- ROTATING TAGLINE -->
-
-  <div class="tagline-wrap">
-    <p class="tagline visible" id="tagline">This is not the fairy tale you were told.</p>
-  </div>
-
-  <!-- SECOND RULE -->
-
-  <div class="rule2"></div>
-
-  <!-- COMING SOON -->
-
-  <div class="coming">
-    <p class="coming-label">Coming Soon</p>
-    <p class="author-name">noahelias.org</p>
-    <a class="x-handle" href="https://x.com/noaheliasbooks" target="_blank" rel="noopener">Follow @noaheliasbooks</a>
-  </div>
+  <h1 class="saga-title">A Saga of<br>Water and Fire</h1>
 
 </div>
-
-<script>
-// ── TAGLINES ──
-const taglines = [
-  "This is not the fairy tale you were told.",
-  "What has your imagination become?",
-  "The last thing they expected was an ending.",
-  "You have been Connected your entire life.",
-  "You chose freely. Or so you were told.",
-  "They had everything they ever wanted. Almost.",
-  "What if the hour is closer than you think?",
-  "The covenant was tailored to the desire of your heart.",
-  "One door. Everything changes.",
-  "Some things do not change. Everything else does.",
-  "History does not repeat. It continues.",
-];
-
-var current = 0;
-var rotationCount = 0;
-var el = document.getElementById('tagline');
-
-// Make sure first tagline is set
-el.textContent = taglines[0];
-el.className = 'tagline visible';
-
-function rotate() {
-  el.className = 'tagline leaving';
-  setTimeout(function() {
-    current = (current + 1) % taglines.length;
-    rotationCount++;
-    el.textContent = taglines[current];
-    el.className = 'tagline entering';
-    setTimeout(function() {
-      el.className = 'tagline visible';
-    }, 50);
-  }, 900);
-}
-
-setInterval(rotate, 5500);
-
-// ── EMBER SPARKS ──
-var container = document.getElementById('particles');
-var emberColors = [
-  'rgba(255,140,20,',
-  'rgba(255,90,10,',
-  'rgba(255,200,50,',
-  'rgba(210,148,60,',
-  'rgba(30,100,200,',
-];
-for (var i = 0; i < 40; i++) {
-  var em = document.createElement('div');
-  em.className = i % 3 === 0 ? 'ember left' : 'ember';
-  var x    = 10 + Math.random() * 80;
-  var dur  = 5 + Math.random() * 10;
-  var del  = Math.random() * 15;
-  var size = 2 + Math.random() * 4;
-  var op   = (0.5 + Math.random() * 0.5).toFixed(2);
-  var col  = emberColors[Math.floor(Math.random() * emberColors.length)];
-  var bg   = col + op + ')';
-  var glow = col + '0.35)';
-  em.style.left            = x + '%';
-  em.style.width           = size + 'px';
-  em.style.height          = size + 'px';
-  em.style.background      = bg;
-  em.style.boxShadow       = '0 0 ' + (size * 2.5) + 'px ' + size + 'px ' + glow;
-  em.style.animationDuration  = dur + 's';
-  em.style.animationDelay     = '-' + del + 's';
-  container.appendChild(em);
-}
-</script>
 
 </body>
 </html>
