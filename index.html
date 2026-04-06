@@ -6,394 +6,468 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Noah Elias — A Saga of Water and Fire</title>
 
-<!-- Social / OG Meta Tags -->
-
-<meta property="og:type"        content="website">
-<meta property="og:url"         content="https://noahelias.org">
-<meta property="og:title"       content="Noah Elias — A Saga of Water and Fire">
-<meta property="og:description" content="This is not the fairy tale you were told. The Ascension — coming 2027.">
-<meta property="og:image"       content="https://noahelias.org/ne_mark.png">
-<meta name="twitter:card"       content="summary_large_image">
-<meta name="twitter:site"       content="@noaheliasbooks">
-<meta name="twitter:title"      content="Noah Elias — A Saga of Water and Fire">
-<meta name="twitter:description"content="This is not the fairy tale you were told. The Ascension — coming 2027.">
-<meta name="twitter:image"      content="https://noahelias.org/ne_mark.png">
+<meta property="og:type"         content="website">
+<meta property="og:url"          content="https://noahelias.org">
+<meta property="og:title"        content="Noah Elias — A Saga of Water and Fire">
+<meta property="og:description"  content="This is not the fairy tale you were told. The Ascension — coming 2027.">
+<meta property="og:image"        content="https://noahelias.org/ne_mark.png">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@noaheliasbooks">
+<meta name="twitter:title"       content="Noah Elias — A Saga of Water and Fire">
+<meta name="twitter:description" content="This is not the fairy tale you were told. The Ascension — coming 2027.">
+<meta name="twitter:image"       content="https://noahelias.org/ne_mark.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  :root {
-    --gold:      #D4AF37;
-    --gold-light:#E8C96A;
-    --gold-dim:  #9B7A20;
-    --deep:      #060404;
-    --dark:      #0D0906;
-  }
+:root {
+  --gold:       #D4AF37;
+  --gold-light: #E8C96A;
+  --deep:       #060404;
+  --dark:       #0D0906;
+}
 
-  html, body {
-    width: 100%; height: 100%;
-    overflow: hidden;
-    background: var(--deep);
-    color: var(--gold-light);
-    font-family: 'EB Garamond', Georgia, serif;
-  }
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  background: var(--deep);
+  font-family: 'EB Garamond', Georgia, serif;
+}
 
-  /* ── BACKGROUND ── */
-  .bg {
-    position: fixed; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,34,51,0.5) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(80,25,0,0.25) 0%, transparent 55%),
-      radial-gradient(ellipse 100% 100% at 50% 50%, #0D0906 0%, #060404 100%);
-  }
+/* ── BACKGROUND ── */
+.bg {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,34,51,0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(80,25,0,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, #0D0906 0%, #060404 100%);
+}
+.fire-ambient {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 40% 30% at 50% 22%, rgba(180,70,5,0.08) 0%, transparent 100%);
+  animation: ambientpulse 8s ease-in-out infinite;
+}
+@keyframes ambientpulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+.grain {
+  position: fixed; inset: 0; z-index: 2; opacity: 0.035; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.scanlines {
+  position: fixed; inset: 0; z-index: 3; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+}
+/* Embers + rings share this container */
+.particles { position: fixed; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
 
-  .fire-ambient {
-    position: fixed; inset: 0; z-index: 1;
-    background: radial-gradient(ellipse 40% 35% at 50% 28%,
-      rgba(180,70,5,0.07) 0%, transparent 100%);
-    pointer-events: none;
-    animation: ambientpulse 8s ease-in-out infinite;
-  }
-  @keyframes ambientpulse {
-    0%,100% { opacity: 0.6; }
-    50%     { opacity: 1; }
-  }
+/* ── STAGE ── */
+.stage {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.2rem; gap: 0;
+}
 
-  .grain {
-    position: fixed; inset: 0; z-index: 2;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
-  }
+/* ════════════════════════════════════════
+   SCENE  —  fire + drop + pool container
+   ════════════════════════════════════════ */
+.scene-wrap {
+  position: relative;
+  width: min(260px, 64vw);
+  height: min(310px, 76vw);
+  flex-shrink: 0;
+  margin-bottom: clamp(0.4rem, 1.2vw, 0.9rem);
+  animation: scenefade 2s ease-out 0.3s forwards;
+  opacity: 0;
+}
+@keyframes scenefade { from{opacity:0} to{opacity:1} }
 
-  /* Scanline overlay */
-  .scanlines {
-    position: fixed; inset: 0; z-index: 3;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
-  }
+/* ── FIRE ─────────────────────────────── */
+/* Anchor: horizontal center, 36% down scene */
+.fire-anchor {
+  position: absolute;
+  left: 50%; top: 36%;
+  width: 0; height: 0;
+  z-index: 2;
+}
 
-  /* ── STAGE ── */
-  .stage {
-    position: fixed; inset: 0; z-index: 10;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 1.5rem;
-    gap: 0;
-  }
+/* Orange oval glow at fire base */
+.fire-base-glow {
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  width: min(90px, 24vw);
+  height: min(40px, 11vw);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,110,15,0.55), rgba(180,55,5,0.28) 55%, transparent 80%);
+  filter: blur(7px);
+  animation: baseglow 2.0s ease-in-out infinite;
+}
+@keyframes baseglow {
+  0%,100% { opacity:0.70; transform:translateX(-50%) scale(1.00); }
+  45%     { opacity:1.00; transform:translateX(-50%) scale(1.18); }
+}
 
-  /* ── MARK ── */
-  .mark {
-    animation: markfade 2.5s ease-out forwards;
-    opacity: 0;
-    margin-bottom: clamp(0.6rem, 2vw, 1.2rem);
-    position: relative;
-  }
-  @keyframes markfade {
-    from { opacity: 0; transform: scale(0.9); }
-    to   { opacity: 1; transform: scale(1); }
-  }
+/* All flames anchored bottom-center of fire-anchor */
+.oflame {
+  position: absolute;
+  bottom: 0; left: 50%;
+  border-radius: 50% 50% 35% 35%;
+  transform-origin: center bottom;
+}
 
-  .mark-shell {
-    position: relative;
-    width: min(260px, 62vw);
-    animation: markfloat 6s ease-in-out 2.5s infinite;
-  }
-  @keyframes markfloat {
-    0%,100% { transform: translateY(0px); }
-    50%     { transform: translateY(-8px); }
-  }
+/* Layer 1 — broad outer orange, drifts */
+.ofl-1 {
+  width: min(72px, 20vw); height: min(105px, 29vw);
+  background: linear-gradient(to top, #cc2000, #ff5500, #ff8800, rgba(255,130,0,0.25), transparent);
+  filter: blur(12px); opacity: 0.62;
+  animation: ofl1 2.2s ease-in-out infinite alternate;
+}
+@keyframes ofl1 {
+  0%   { transform:translateX(-52%) scaleX(1.00) rotate(-5deg); opacity:0.52; }
+  28%  { transform:translateX(-42%) scaleX(1.18) rotate(6deg);  opacity:0.72; }
+  55%  { transform:translateX(-56%) scaleX(0.86) rotate(-3deg); opacity:0.56; }
+  80%  { transform:translateX(-44%) scaleX(1.12) rotate(7deg);  opacity:0.74; }
+  100% { transform:translateX(-52%) scaleX(1.00) rotate(-5deg); opacity:0.54; }
+}
 
-  .mark-base {
-    width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-    z-index: 3;
+/* Layer 2 — wild turbulent flare */
+.ofl-2 {
+  width: min(46px, 13vw); height: min(128px, 35vw);
+  background: linear-gradient(to top, transparent, rgba(255,185,45,0.48), rgba(255,220,90,0.22), transparent);
+  filter: blur(9px); opacity: 0.48;
+  animation: ofl2 3.6s ease-in-out infinite;
+}
+@keyframes ofl2 {
+  0%   { transform:translateX(-64%) scaleX(0.72) rotate(-11deg); opacity:0.14; }
+  14%  { transform:translateX(-37%) scaleX(1.45) rotate(13deg);  opacity:0.67; }
+  32%  { transform:translateX(-58%) scaleX(0.78) rotate(-7deg);  opacity:0.26; }
+  50%  { transform:translateX(-40%) scaleX(1.32) rotate(10deg);  opacity:0.58; }
+  70%  { transform:translateX(-62%) scaleX(0.74) rotate(-12deg); opacity:0.17; }
+  86%  { transform:translateX(-38%) scaleX(1.22) rotate(9deg);   opacity:0.52; }
+  100% { transform:translateX(-64%) scaleX(0.72) rotate(-11deg); opacity:0.14; }
+}
+
+/* Layer 3 — mid yellow, medium speed */
+.ofl-3 {
+  width: min(48px, 13vw); height: min(88px, 24vw);
+  background: linear-gradient(to top, #ff6500, #ffaa00, #ffdd44, transparent);
+  filter: blur(5px); opacity: 0.90;
+  animation: ofl3 1.25s ease-in-out infinite alternate;
+}
+@keyframes ofl3 {
+  0%   { transform:translateX(-54%) scaleX(1.00) rotate(3deg);  }
+  32%  { transform:translateX(-46%) scaleX(1.12) rotate(-5deg); }
+  65%  { transform:translateX(-57%) scaleX(0.88) rotate(3deg);  }
+  100% { transform:translateX(-50%) scaleX(1.06) rotate(-3deg); }
+}
+
+/* Layer 4 — inner bright, fast */
+.ofl-4 {
+  width: min(28px, 8vw); height: min(68px, 19vw);
+  background: linear-gradient(to top, #ffcc00, #ffee55, #ffff99, transparent);
+  filter: blur(3px); opacity: 0.95;
+  animation: ofl4 0.82s ease-in-out infinite alternate;
+}
+@keyframes ofl4 {
+  0%   { transform:translateX(-48%) scaleX(1.00) rotate(-6deg); }
+  30%  { transform:translateX(-56%) scaleX(1.16) rotate(8deg);  }
+  65%  { transform:translateX(-43%) scaleX(0.84) rotate(-5deg); }
+  100% { transform:translateX(-50%) scaleX(1.08) rotate(5deg);  }
+}
+
+/* Layer 5 — white core, fastest */
+.ofl-5 {
+  width: min(16px, 4.5vw); height: min(50px, 14vw);
+  background: linear-gradient(to top, #ffffff, #ffffee, #ffff88, transparent);
+  filter: blur(1.5px); opacity: 0.97;
+  animation: ofl5 0.52s ease-in-out infinite alternate;
+}
+@keyframes ofl5 {
+  0%   { transform:translateX(-50%) scaleX(1.00) scaleY(1.00); opacity:0.88; }
+  40%  { transform:translateX(-44%) scaleX(1.22) scaleY(0.84); opacity:1.00; }
+  100% { transform:translateX(-53%) scaleX(0.82) scaleY(1.22); opacity:0.90; }
+}
+
+/* ── DROP ─────────────────────────────── */
+/*
+  Positioned at fire level (36%).
+  Animation offsets it vertically through the scene.
+  Center of drop image sits on the anchor point.
+*/
+.drop-wrap {
+  position: absolute;
+  left: 50%; top: 36%;
+  z-index: 5;
+  transform-origin: center center;
+  animation: dropfall 9s ease-in 0.8s infinite;
+}
+
+/* Drop image — centered on the drop-wrap anchor point */
+.drop-img {
+  display: block;
+  width: min(130px, 37vw);
+  /* Center image on anchor: shift left by half width, up by half height */
+  position: relative;
+  left: 0;
+  transform: translateX(-50%) translateY(-50%);
+  transform-origin: center bottom;
+  animation: dropglow 2.3s ease-in-out 0.8s infinite;
+}
+@keyframes dropglow {
+  0%,100% {
     filter:
-      drop-shadow(0 0 30px rgba(210,90,5,0.65))
-      drop-shadow(0 0 70px rgba(210,90,5,0.25))
-      drop-shadow(0 0 8px rgba(13,80,140,0.45));
+      drop-shadow(0 0 20px rgba(210,90,5,0.55))
+      drop-shadow(0 0 7px  rgba(13,80,160,0.45));
   }
+  38% {
+    filter:
+      drop-shadow(0 0 38px rgba(240,115,5,0.90))
+      drop-shadow(0 0 16px rgba(20,105,215,0.72));
+  }
+}
 
-  /* Fire clipped inside the raindrop shape */
-  .fire-container {
-    position: absolute;
-    top: 20%;
-    left: 25%;
-    width: 50%;
-    height: 62%;
-    overflow: hidden;
-    border-radius: 48% 48% 36% 36%;
-    z-index: 2;
-    pointer-events: none;
-    mix-blend-mode: screen;
-  }
+/*
+  DROP FALL ANIMATION
+  translateY(0) = fire level (pause position)
+  Negative = above fire
+  Positive = below fire, toward pool
 
-  .flame {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 50% 50% 40% 40%;
-    filter: blur(4px);
-    opacity: 0.95;
-    animation: flicker 1.2s infinite alternate ease-in-out;
-  }
-  .outer  { background: linear-gradient(to top, #ff4500, #ff8c00, transparent); width: 58%; height: 92%; animation-duration: 1.9s; filter: blur(9px); opacity: 0.68; }
-  .middle { background: linear-gradient(to top, #ffaa00, #ffdd00, transparent); width: 42%; height: 80%; animation-duration: 1.0s; }
-  .inner  { background: linear-gradient(to top, #ffee00, #ffff88, transparent); width: 30%; height: 67%; animation-duration: 1.5s; filter: blur(2px); }
-  .core   { background: linear-gradient(to top, #ffffff, #ffffcc, transparent); width: 19%; height: 50%; animation-duration: 0.75s; filter: blur(1px); opacity: 0.92; }
+  Pool is at 82% of scene (460px * 0.82 = ~253px from top)
+  Fire is at 36% (460px * 0.36 = ~166px from top)
+  Δ = 87px travel to pool from fire
 
-  @keyframes flicker {
-    0%   { transform: translateX(-50%) scale(1.00) rotate(-4deg); }
-    25%  { transform: translateX(-50%) scale(1.06) rotate(3deg); }
-    50%  { transform: translateX(-50%) scale(0.96) rotate(-2deg); }
-    75%  { transform: translateX(-50%) scale(1.04) rotate(2deg); }
-    100% { transform: translateX(-50%) scale(1.00) rotate(-1deg); }
-  }
+  Drop starts: 36% - 200px above = ~above the scene
+  Pool distance from fire anchor: ~110px (pool 82% - fire 36% = 46% of min(310px,76vw))
+  At 310px scene: 46% * 310 = 143px
+  At 76vw on 375px phone: 76vw = 285px, 46% = 131px
+  Use 135px as pool travel distance
+*/
+@keyframes dropfall {
 
-  .mark-glow {
-    position: absolute; inset: 15%;
-    background: radial-gradient(circle, rgba(255,130,15,0.22), transparent 70%);
-    filter: blur(18px);
-    z-index: 1;
-    animation: markglowpulse 5s ease-in-out 2.5s infinite;
-    pointer-events: none;
-  }
-  @keyframes markglowpulse {
-    0%,100% { opacity: 0.5; transform: scale(1); }
-    50%     { opacity: 1;   transform: scale(1.08); }
-  }
+  /* ① Above scene, invisible */
+  0%   { transform: translateX(-50%) translateY(-200px) scaleX(0.86) scaleY(1.22); opacity:0; }
 
-  .mark-heat {
-    position: absolute;
-    top: -8%; left: 50%; width: 22%; height: 22%;
-    transform: translateX(-50%);
-    background: radial-gradient(circle, rgba(255,150,50,0.28), transparent);
-    filter: blur(8px);
-    z-index: 4;
-    animation: heatrise 2.2s ease-in-out 2.5s infinite;
-    pointer-events: none;
-  }
-  @keyframes heatrise {
-    0%,100% { transform: translateX(-50%) scaleY(1);   opacity: 0.7; }
-    50%     { transform: translateX(-50%) scaleY(1.3); opacity: 1; }
-  }
+  /* ② Fades in, falling (elongated) */
+  4%   { opacity:1; }
+  22%  { transform: translateX(-50%) translateY(-70px) scaleX(0.90) scaleY(1.14); opacity:1; }
 
-  .mark-shimmer {
-    position: absolute; inset: 0;
-    overflow: hidden; z-index: 5; pointer-events: none;
-  }
-  .mark-shimmer::before {
-    content: "";
-    position: absolute;
-    width: 25%; height: 100%;
-    left: -40%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-    transform: skewX(-20deg);
-    animation: shimmerpass 9s ease-in-out 3s infinite;
-  }
-  @keyframes shimmerpass {
-    0%,65%,100% { left: -40%; opacity: 0; }
-    68%         { opacity: 0.5; }
-    78%         { left: 120%; opacity: 0; }
-  }
+  /* ③ Decelerating into fire zone */
+  33%  { transform: translateX(-50%) translateY(-10px) scaleX(0.96) scaleY(1.05); }
 
-  /* ── TITLE BLOCK ── */
-  .title-block {
-    text-align: center;
-    margin-bottom: clamp(0.8rem, 2vw, 1.5rem);
-    animation: rise 2.5s ease-out 0.5s forwards;
-    opacity: 0;
-  }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(10px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  /* ④ PAUSE AT FIRE — drop settles to normal shape */
+  39%  { transform: translateX(-50%) translateY(0px)  scaleX(1.00) scaleY(1.00); }
 
-  .saga-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1.5rem, 5.5vw, 3rem);
-    font-weight: 600;
-    color: #D4AF37;
-    letter-spacing: 0.08em;
-    line-height: 1.2;
-    text-shadow:
-      0 0 30px rgba(212,175,55,0.7),
-      0 0 60px rgba(212,175,55,0.3),
-      0 0 100px rgba(212,175,55,0.12);
-    margin-bottom: 0.4rem;
-  }
+  /* ④a Surface-tension wobble while paused */
+  43%  { transform: translateX(-50%) translateY(3px)  scaleX(1.03) scaleY(0.97); }
+  47%  { transform: translateX(-50%) translateY(-2px) scaleX(0.97) scaleY(1.03); }
+  51%  { transform: translateX(-50%) translateY(2px)  scaleX(1.02) scaleY(0.98); }
+  55%  { transform: translateX(-50%) translateY(0px)  scaleX(1.00) scaleY(1.00); }
+  60%  { transform: translateX(-50%) translateY(0px)  scaleX(1.00) scaleY(1.00); }
 
-  .series-line {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.6rem, 1.6vw, 0.8rem);
-    letter-spacing: 0.4em;
-    color: #B8962E;
-    text-transform: uppercase;
-  }
+  /* ⑤ RELEASE — elongates as it accelerates */
+  63%  { transform: translateX(-50%) translateY(6px)  scaleX(0.95) scaleY(1.08); }
+  68%  { transform: translateX(-50%) translateY(38px) scaleX(0.90) scaleY(1.20); }
+  74%  { transform: translateX(-50%) translateY(88px) scaleX(0.87) scaleY(1.26); }
 
-  /* ── RULE ── */
-  .rule {
-    width: min(220px, 55vw);
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
-    margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-    animation: rulefade 2.5s ease-out 1s forwards;
-    opacity: 0;
-  }
-  @keyframes rulefade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
+  /* ⑥ IMPACT SQUISH */
+  80%  { transform: translateX(-50%) translateY(133px) scaleX(1.55) scaleY(0.14); opacity:1; }
+  83%  { transform: translateX(-50%) translateY(136px) scaleX(1.90) scaleY(0.03); opacity:0; }
 
-  /* ── ROTATING TAGLINE ── */
-  .tagline-wrap {
-    height: clamp(2.8rem, 6vw, 4rem);
-    display: flex; align-items: center; justify-content: center;
-    max-width: min(640px, 90vw);
-    width: 100%;
-    margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-    position: relative;
-  }
+  /* ⑦ Instantly reset above (invisible) */
+  84%  { transform: translateX(-50%) translateY(-200px) scaleX(0.86) scaleY(1.22); opacity:0; }
+  100% { transform: translateX(-50%) translateY(-200px) scaleX(0.86) scaleY(1.22); opacity:0; }
+}
 
-  .tagline {
-    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
-    font-style: italic;
-    font-size: clamp(1rem, 2.8vw, 1.35rem);
-    color: #D4A843;
-    text-align: center;
-    letter-spacing: 0.02em;
-    line-height: 1.4;
-    position: absolute;
-    width: min(640px, 90vw);
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.9s ease, transform 0.9s ease;
-  }
-  .tagline.leaving  { opacity: 0; transform: translateY(-12px); }
-  .tagline.entering { opacity: 0; transform: translateY(12px); }
-  .tagline.visible  { opacity: 1; transform: translateY(0); }
+/* ── FIRE FRONT GLOW ──────────────────
+   Higher z-index than drop.
+   Only visible during the pause phase.
+   Creates depth — fire bleeds slightly in front of drop. */
+.fire-front {
+  position: absolute;
+  left: 50%; top: 36%;
+  transform: translate(-50%, -50%);
+  width: min(180px, 50vw);
+  height: min(140px, 39vw);
+  border-radius: 50%;
+  background: radial-gradient(ellipse,
+    rgba(255,95,10,0.20) 0%,
+    rgba(200,55,5,0.08) 55%,
+    transparent 75%);
+  z-index: 6; pointer-events: none;
+  opacity: 0;
+  animation: frontglow 9s ease-in-out 0.8s infinite;
+}
+@keyframes frontglow {
+  0%,  36% { opacity:0; }
+  44%      { opacity:0.75; }
+  55%      { opacity:0.95; }
+  62%      { opacity:0.55; }
+  69%      { opacity:0; }
+  100%     { opacity:0; }
+}
 
-  /* ── BOTTOM RULE ── */
-  .rule2 {
-    width: min(160px, 40vw);
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
-    margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-    animation: rulefade 2.5s ease-out 1.8s forwards;
-    opacity: 0;
-  }
+/* ── POOL ─────────────────────────────── */
+.pool-wrap {
+  position: absolute;
+  left: 50%; top: 82%;
+  transform: translateX(-50%);
+  width: min(190px, 52vw);
+  z-index: 3;
+}
 
-  /* ── BOOK / AUTHOR BLOCK ── */
-  .coming {
-    text-align: center;
-    animation: rise 2.5s ease-out 2s forwards;
-    opacity: 0;
-  }
+.pool-surface {
+  width: 100%;
+  height: min(9px, 2.5vw);
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(45,125,200,0.22) 18%,
+    rgba(75,165,240,0.48) 50%,
+    rgba(45,125,200,0.22) 82%,
+    transparent 100%);
+  border-radius: 50%;
+  position: relative;
+  transition: box-shadow 0.1s;
+}
 
-  /* Book title — primary */
-  .book-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.75rem, 2vw, 1rem);
-    letter-spacing: 0.25em;
-    color: rgba(232,185,80,0.95);
-    text-transform: uppercase;
-    margin-bottom: 0.35rem;
-    text-shadow: 0 0 20px rgba(212,175,55,0.3);
-  }
+/* Fire reflection on pool */
+.pool-surface::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 55%; height: 200%;
+  background: radial-gradient(ellipse, rgba(255,100,20,0.18), transparent 70%);
+  filter: blur(3px);
+  border-radius: 50%;
+  animation: poolreflect 2.0s ease-in-out 0.8s infinite;
+}
+@keyframes poolreflect { 0%,100%{opacity:0.55} 45%{opacity:1.00} }
 
-  /* Year — secondary */
-  .book-year {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: clamp(0.7rem, 1.6vw, 0.85rem);
-    font-style: italic;
-    color: rgba(180,145,60,0.75);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.55rem;
-  }
+.pool-surface.splash {
+  box-shadow: 0 0 14px 3px rgba(75,165,240,0.65);
+}
 
-  .author-name {
-    font-family: 'EB Garamond', Georgia, serif;
-    font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-    color: rgba(200,155,60,0.7);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-  }
+/* ── RIPPLE RINGS (JS-injected, absolute to .particles) ── */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(75,155,225,0.55);
+  pointer-events: none;
+  animation: rippleout linear forwards;
+}
+.ripple.warm { border-color: rgba(255,138,38,0.30); }
+@keyframes rippleout {
+  0%   { transform:translate(-50%,-50%) scale(0.12); opacity:0.72; }
+  100% { transform:translate(-50%,-50%) scale(5.00); opacity:0; }
+}
 
-  .x-handle {
-    display: block;
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.5rem, 1.3vw, 0.65rem);
-    letter-spacing: 0.45em;
-    color: rgba(210,160,60,0.75);
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: color 0.4s ease, letter-spacing 0.4s ease;
-    margin-top: 0.2rem;
-  }
-  .x-handle:hover {
-    color: rgba(240,200,90,1);
-    letter-spacing: 0.55em;
-  }
+/* ════════════════════════════════════════
+   TEXT
+   ════════════════════════════════════════ */
+.title-block {
+  text-align: center;
+  margin-bottom: clamp(0.7rem, 1.8vw, 1.3rem);
+  animation: rise 2s ease-out 1s forwards; opacity: 0;
+}
+@keyframes rise { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ── EMBER SPARKS ── */
-  .particles {
-    position: fixed; inset: 0; z-index: 4;
-    pointer-events: none; overflow: hidden;
-  }
-  .ember {
-    position: absolute;
-    border-radius: 50%;
-    animation: ember-rise linear infinite;
-  }
-  @keyframes ember-rise {
-    0%   { transform: translateY(100vh) translateX(0)    scale(1);   opacity: 0; }
-    8%   { opacity: 1; }
-    50%  { transform: translateY(50vh)  translateX(30px)  scale(0.7); opacity: 0.7; }
-    85%  { transform: translateY(15vh)  translateX(60px)  scale(0.3); opacity: 0.3; }
-    100% { transform: translateY(-5vh)  translateX(80px)  scale(0.1); opacity: 0; }
-  }
-  .ember.left {
-    animation-name: ember-rise-left;
-  }
-  @keyframes ember-rise-left {
-    0%   { transform: translateY(100vh) translateX(0)     scale(1);   opacity: 0; }
-    8%   { opacity: 1; }
-    50%  { transform: translateY(50vh)  translateX(-30px) scale(0.7); opacity: 0.7; }
-    85%  { transform: translateY(15vh)  translateX(-60px) scale(0.3); opacity: 0.3; }
-    100% { transform: translateY(-5vh)  translateX(-80px) scale(0.1); opacity: 0; }
-  }
+.saga-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 5.2vw, 2.8rem);
+  font-weight: 600; color: #D4AF37;
+  letter-spacing: 0.08em; line-height: 1.2;
+  text-shadow: 0 0 30px rgba(212,175,55,0.7), 0 0 60px rgba(212,175,55,0.28);
+  margin-bottom: 0.35rem;
+}
+.series-line {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.58rem, 1.55vw, 0.78rem);
+  letter-spacing: 0.4em; color: #B8962E; text-transform: uppercase;
+}
 
-  /* Subtle water drop — a single slow-falling drop near the bottom of the mark */
-  .water-drop {
-    position: absolute;
-    bottom: -18%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3px;
-    height: 3px;
-    background: rgba(80,160,220,0.6);
-    border-radius: 50%;
-    z-index: 6;
-    animation: dropcycle 4s ease-in 2.5s infinite;
-    pointer-events: none;
-  }
-  @keyframes dropcycle {
-    0%   { transform: translateX(-50%) translateY(0) scale(1); opacity: 0.7; }
-    60%  { transform: translateX(-50%) translateY(18px) scale(0.6); opacity: 0.4; }
-    80%  { transform: translateX(-50%) translateY(22px) scale(0.2); opacity: 0; }
-    100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 0; }
-  }
+.rule {
+  width: min(210px, 52vw); height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
+  margin-bottom: clamp(0.7rem, 1.8vw, 1.3rem);
+  animation: rulefade 2s ease-out 1.4s forwards; opacity: 0;
+}
+.rule2 {
+  width: min(150px, 38vw); height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.28), transparent);
+  margin-bottom: clamp(0.9rem, 2.2vw, 1.4rem);
+  animation: rulefade 2s ease-out 2s forwards; opacity: 0;
+}
+@keyframes rulefade { from{opacity:0} to{opacity:1} }
+
+.tagline-wrap {
+  height: clamp(2.6rem, 5.8vw, 3.8rem);
+  display: flex; align-items: center; justify-content: center;
+  max-width: min(620px, 90vw); width: 100%;
+  margin-bottom: clamp(0.7rem, 1.8vw, 1.3rem);
+  position: relative;
+}
+.tagline {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 2.7vw, 1.3rem);
+  color: #D4A843; text-align: center;
+  letter-spacing: 0.02em; line-height: 1.4;
+  position: absolute; width: min(620px, 90vw);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.tagline.leaving  { opacity:0; transform:translateY(-12px); }
+.tagline.entering { opacity:0; transform:translateY(12px); }
+.tagline.visible  { opacity:1; transform:translateY(0); }
+
+.coming {
+  text-align: center;
+  animation: rise 2s ease-out 2.2s forwards; opacity: 0;
+}
+.book-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.72rem, 1.9vw, 0.95rem);
+  letter-spacing: 0.25em; color: rgba(232,185,80,0.95);
+  text-transform: uppercase; margin-bottom: 0.28rem;
+  text-shadow: 0 0 18px rgba(212,175,55,0.28);
+}
+.book-year {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: clamp(0.68rem, 1.55vw, 0.82rem);
+  font-style: italic; color: rgba(180,145,60,0.72);
+  letter-spacing: 0.15em; margin-bottom: 0.48rem;
+}
+.author-name {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: clamp(0.85rem, 2.1vw, 1.05rem);
+  color: rgba(200,155,60,0.62); letter-spacing: 0.1em; margin-bottom: 0.45rem;
+}
+.x-handle {
+  display: block; font-family: 'Cinzel', serif;
+  font-size: clamp(0.48rem, 1.25vw, 0.63rem);
+  letter-spacing: 0.45em; color: rgba(210,160,60,0.68);
+  text-transform: uppercase; text-decoration: none;
+  transition: color 0.4s, letter-spacing 0.4s;
+}
+.x-handle:hover { color: rgba(240,200,90,1); letter-spacing: 0.56em; }
+
+/* ── EMBER SPARKS ── */
+.ember { position: absolute; border-radius: 50%; animation: ember-rise linear infinite; }
+@keyframes ember-rise {
+  0%   { transform:translateY(100vh) translateX(0)    scale(1);   opacity:0; }
+  8%   { opacity:1; }
+  50%  { transform:translateY(50vh)  translateX(28px)  scale(0.7); opacity:0.7; }
+  85%  { transform:translateY(15vh)  translateX(55px)  scale(0.3); opacity:0.3; }
+  100% { transform:translateY(-5vh)  translateX(75px)  scale(0.1); opacity:0; }
+}
+.ember.left { animation-name: ember-left; }
+@keyframes ember-left {
+  0%   { transform:translateY(100vh) translateX(0)     scale(1);   opacity:0; }
+  8%   { opacity:1; }
+  50%  { transform:translateY(50vh)  translateX(-28px) scale(0.7); opacity:0.7; }
+  85%  { transform:translateY(15vh)  translateX(-55px) scale(0.3); opacity:0.3; }
+  100% { transform:translateY(-5vh)  translateX(-75px) scale(0.1); opacity:0; }
+}
 </style>
 
 </head>
@@ -407,46 +481,50 @@
 
 <div class="stage">
 
-  <!-- MARK -->
+  <!-- ═══ SCENE: fire + drop + pool ═══ -->
 
-  <div class="mark">
-    <div class="mark-shell">
-      <img src="ne_mark.png" alt="Noah Elias — Water and Fire" class="mark-base">
-      <div class="fire-container">
-        <div class="flame outer"></div>
-        <div class="flame middle"></div>
-        <div class="flame inner"></div>
-        <div class="flame core"></div>
-      </div>
-      <div class="mark-glow"></div>
-      <div class="mark-heat"></div>
-      <div class="mark-shimmer"></div>
-      <div class="water-drop"></div>
-    </div>
+  <div class="scene-wrap" id="scene-wrap">
+
+```
+<!-- FIRE (z-index 2 — behind drop) -->
+<div class="fire-anchor">
+  <div class="fire-base-glow"></div>
+  <div class="oflame ofl-1"></div>
+  <div class="oflame ofl-2"></div>
+  <div class="oflame ofl-3"></div>
+  <div class="oflame ofl-4"></div>
+  <div class="oflame ofl-5"></div>
+</div>
+
+<!-- DROP (z-index 5) -->
+<div class="drop-wrap" id="drop-wrap">
+  <img src="ne_mark.png" alt="Noah Elias" class="drop-img" id="drop-img">
+</div>
+
+<!-- FIRE FRONT GLOW (z-index 6 — depth during pause) -->
+<div class="fire-front"></div>
+
+<!-- POOL (z-index 3) -->
+<div class="pool-wrap">
+  <div class="pool-surface" id="pool-surface"></div>
+</div>
+```
+
   </div>
-
-  <!-- TITLE -->
+  <!-- ═══════════════════════════════════ -->
 
   <div class="title-block">
     <h1 class="saga-title">A Saga of<br>Water and Fire</h1>
     <p class="series-line">Noah Elias</p>
   </div>
 
-  <!-- DIVIDER -->
-
   <div class="rule"></div>
-
-  <!-- ROTATING TAGLINE -->
 
   <div class="tagline-wrap">
     <p class="tagline visible" id="tagline">This is not the fairy tale you were told.</p>
   </div>
 
-  <!-- SECOND RULE -->
-
   <div class="rule2"></div>
-
-  <!-- BOOK / AUTHOR -->
 
   <div class="coming">
     <p class="book-title">The Ascension</p>
@@ -473,54 +551,96 @@ const taglines = [
   "History does not repeat. It continues.",
   "The deep was always there. No one thought to ask what it was waiting for.",
 ];
-
-let current = 0;
-const el = document.getElementById('tagline');
-
-el.textContent = taglines[0];
-el.className = 'tagline visible';
-
-function rotate() {
-  el.className = 'tagline leaving';
+let tagIdx = 0;
+const tagEl = document.getElementById('tagline');
+tagEl.className = 'tagline visible';
+function rotateTags() {
+  tagEl.className = 'tagline leaving';
   setTimeout(() => {
-    current = (current + 1) % taglines.length;
-    el.textContent = taglines[current];
-    el.className = 'tagline entering';
-    setTimeout(() => { el.className = 'tagline visible'; }, 50);
+    tagIdx = (tagIdx + 1) % taglines.length;
+    tagEl.textContent = taglines[tagIdx];
+    tagEl.className = 'tagline entering';
+    setTimeout(() => { tagEl.className = 'tagline visible'; }, 50);
   }, 900);
 }
-
-setInterval(rotate, 5500);
+setInterval(rotateTags, 5500);
 
 // ── EMBER SPARKS ──
-const container = document.getElementById('particles');
-const emberColors = [
-  'rgba(255,140,20,',
-  'rgba(255,90,10,',
-  'rgba(255,200,50,',
-  'rgba(210,148,60,',
-  'rgba(30,100,200,',
-];
-for (let i = 0; i < 40; i++) {
+const pContainer = document.getElementById('particles');
+const eColors = ['rgba(255,140,20,','rgba(255,90,10,','rgba(255,200,50,','rgba(210,148,60,','rgba(30,100,200,'];
+for (let i = 0; i < 38; i++) {
   const em   = document.createElement('div');
   em.className = i % 3 === 0 ? 'ember left' : 'ember';
   const x    = 10 + Math.random() * 80;
   const dur  = 5  + Math.random() * 10;
   const del  = Math.random() * 15;
-  const size = 2  + Math.random() * 4;
+  const sz   = 2  + Math.random() * 3.5;
   const op   = (0.5 + Math.random() * 0.5).toFixed(2);
-  const col  = emberColors[Math.floor(Math.random() * emberColors.length)];
-  const bg   = col + op + ')';
-  const glow = col + '0.35)';
-  em.style.left               = x + '%';
-  em.style.width              = size + 'px';
-  em.style.height             = size + 'px';
-  em.style.background         = bg;
-  em.style.boxShadow          = `0 0 ${size * 2.5}px ${size}px ${glow}`;
-  em.style.animationDuration  = dur + 's';
-  em.style.animationDelay     = '-' + del + 's';
-  container.appendChild(em);
+  const col  = eColors[Math.floor(Math.random() * eColors.length)];
+  em.style.left              = x + '%';
+  em.style.width             = sz + 'px';
+  em.style.height            = sz + 'px';
+  em.style.background        = col + op + ')';
+  em.style.boxShadow         = '0 0 '+(sz*2.5)+'px '+sz+'px '+col+'0.32)';
+  em.style.animationDuration = dur + 's';
+  em.style.animationDelay    = '-' + del + 's';
+  pContainer.appendChild(em);
 }
+
+// ── IMPACT — RINGS ──
+// Cycle matches CSS: 9s, animation-delay: 0.8s
+// Impact at 80% * 9000 = 7200ms into each cycle
+const CYCLE    = 9000;
+const IMPACT   = 7200;
+const CSS_DELAY = 800;
+
+const poolSurface = document.getElementById('pool-surface');
+
+function getPoolCenter() {
+  const scene = document.getElementById('scene-wrap');
+  const r     = scene.getBoundingClientRect();
+  return {
+    x: r.left + r.width  * 0.50,
+    y: r.top  + r.height * 0.82,
+    w: r.width
+  };
+}
+
+function spawnRing(pos, delay, warm) {
+  setTimeout(() => {
+    const r   = document.createElement('div');
+    r.className = warm ? 'ripple warm' : 'ripple';
+    const w   = pos.w * (0.50 + Math.random() * 0.12);
+    const h   = w * 0.32;
+    const dur = 1.7 + Math.random() * 0.6;
+    r.style.cssText =
+      'left:'+pos.x+'px;top:'+pos.y+'px;'+
+      'width:'+w+'px;height:'+h+'px;'+
+      'animation-duration:'+dur+'s;';
+    pContainer.appendChild(r);
+    setTimeout(() => r.remove(), dur * 1000 + 100);
+  }, delay);
+}
+
+function fireImpact() {
+  const pos = getPoolCenter();
+
+  // Pool flash
+  poolSurface.classList.add('splash');
+  setTimeout(() => poolSurface.classList.remove('splash'), 320);
+
+  // 3 water rings + 1 warm (fire-reflection) ring
+  spawnRing(pos,   0,   false);
+  spawnRing(pos, 135,   false);
+  spawnRing(pos, 270,   false);
+  spawnRing(pos, 180,   true);
+}
+
+// Sync with CSS animation
+setTimeout(() => {
+  fireImpact();
+  setInterval(fireImpact, CYCLE);
+}, CSS_DELAY + IMPACT);
 </script>
 
 </body>
