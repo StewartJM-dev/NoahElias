@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -10,244 +9,311 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-–gold: #D4AF37;
-–gold-light: #E8C96A;
-–gold-dim: #9B7A20;
-–deep: #060404;
-–dark: #0D0906;
+  --gold: #D4AF37;
+  --gold-light: #E8C96A;
+  --gold-dim: #9B7A20;
+  --deep: #060404;
+  --dark: #0D0906;
 }
 
 html, body {
-width: 100%; height: 100%;
-overflow: hidden;
-background: var(–deep);
-color: var(–gold-light);
-font-family: ‘EB Garamond’, Georgia, serif;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--deep);
+  color: var(--gold-light);
+  font-family: ‘EB Garamond’, Georgia, serif;
 }
 
 /* ── BACKGROUND ── */
 .bg {
-position: fixed; inset: 0; z-index: 0;
-background:
-radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,34,51,0.5) 0%, transparent 60%),
-radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(80,25,0,0.25) 0%, transparent 55%),
-radial-gradient(ellipse 100% 100% at 50% 50%, #0D0906 0%, #060404 100%);
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(13,34,51,0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 0%,   rgba(80,25,0,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, #0D0906 0%, #060404 100%);
 }
 
 /* fire glow from mark area */
 .fire-ambient {
-position: fixed;
-top: 0; left: 0; right: 0; bottom: 0;
-z-index: 1;
-background: radial-gradient(ellipse 40% 35% at 50% 28%,
-rgba(180,70,5,0.07) 0%,
-transparent 100%);
-pointer-events: none;
-animation: ambientpulse 8s ease-in-out infinite;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse 40% 35% at 50% 28%,
+    rgba(180,70,5,0.07) 0%,
+    transparent 100%);
+  pointer-events: none;
+  animation: ambientpulse 8s ease-in-out infinite;
 }
 @keyframes ambientpulse {
-0%,100% { opacity: 0.6; }
-50%      { opacity: 1; }
+  0%,100% { opacity: 0.6; }
+  50%      { opacity: 1; }
 }
 
 /* grain */
 .grain {
-position: fixed; inset: 0; z-index: 2;
-opacity: 0.035;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.85’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
-pointer-events: none;
+  position: fixed; inset: 0; z-index: 2;
+  opacity: 0.035;
+  background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.85’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’/%3E%3C/svg%3E”);
+  pointer-events: none;
 }
 
 /* ── STAGE ── */
 .stage {
-position: fixed; inset: 0; z-index: 10;
-display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-padding: 1.5rem;
-padding-top: 0;
-margin-top: -4vh;
-gap: 0;
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.5rem;
+  padding-top: 0;
+  margin-top: -4vh;
+  gap: 0;
 }
 
 /* ── MARK IMAGE ── */
 .mark {
-animation: markfade 2.5s ease-out forwards;
-opacity: 0;
-margin-bottom: clamp(0.6rem, 2vw, 1.2rem);
-position: relative;
+  animation: markfade 2.5s ease-out forwards;
+  opacity: 0;
+  margin-bottom: clamp(0.6rem, 2vw, 1.2rem);
+  position: relative;
 }
 @keyframes markfade {
-from { opacity: 0; transform: scale(0.9); }
-to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 .mark-shell {
-position: relative;
-width: min(260px, 62vw);
-animation: markfloat 6s ease-in-out 2.5s infinite;
+  position: relative;
+  width: min(260px, 62vw);
+  animation: markfloat 6s ease-in-out 2.5s infinite;
 }
 
 @keyframes markfloat {
-0%,100% { transform: translateY(0px); }
-50%     { transform: translateY(-8px); }
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-8px); }
 }
 
-.mark img {
-width: 100%;
-height: auto;
-display: block;
-position: relative;
-z-index: 3;
-animation: flamecore 3s ease-in-out 2.5s infinite;
-filter:
-drop-shadow(0 0 30px rgba(210,90,5,0.65))
-drop-shadow(0 0 70px rgba(210,90,5,0.25))
-drop-shadow(0 0 8px rgba(13,80,140,0.45));
-}
-@keyframes flamecore {
-0%,100% { filter:
-drop-shadow(0 0 25px rgba(210,90,5,0.55))
-drop-shadow(0 0 55px rgba(210,90,5,0.2))
-drop-shadow(0 0 6px rgba(13,80,140,0.35));
-}
-50% { filter:
-drop-shadow(0 0 40px rgba(230,110,5,0.85))
-drop-shadow(0 0 90px rgba(210,90,5,0.35))
-drop-shadow(0 0 12px rgba(30,100,200,0.6));
-}
+/* Base raindrop (your original PNG) */
+.mark-base {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 3;
+  filter:
+    drop-shadow(0 0 30px rgba(210,90,5,0.65))
+    drop-shadow(0 0 70px rgba(210,90,5,0.25))
+    drop-shadow(0 0 8px rgba(13,80,140,0.45));
 }
 
-/* Radial glow beneath the mark */
+/* Fire container – clips fire inside the raindrop */
+.fire-container {
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 56%;
+  height: 68%;
+  overflow: hidden;
+  border-radius: 45% 45% 38% 38%; /* soft inner teardrop shape */
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: screen; /* realistic glowing fire over glass/water */
+}
+
+/* Realistic layered flames */
+.flame {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 40% 40%;
+  filter: blur(4px);
+  opacity: 0.95;
+  animation: flicker 1.2s infinite alternate ease-in-out;
+}
+
+.outer {
+  background: linear-gradient(to top, #ff4500, #ff8c00, transparent);
+  width: 58%;
+  height: 92%;
+  animation-duration: 1.9s;
+  filter: blur(9px);
+  opacity: 0.68;
+}
+
+.middle {
+  background: linear-gradient(to top, #ffaa00, #ffdd00, transparent);
+  width: 42%;
+  height: 80%;
+  animation-duration: 1.0s;
+}
+
+.inner {
+  background: linear-gradient(to top, #ffee00, #ffff88, transparent);
+  width: 30%;
+  height: 67%;
+  animation-duration: 1.5s;
+  filter: blur(2px);
+}
+
+.core {
+  background: linear-gradient(to top, #ffffff, #ffffcc, transparent);
+  width: 19%;
+  height: 50%;
+  animation-duration: 0.75s;
+  filter: blur(1px);
+  opacity: 0.92;
+}
+
+@keyframes flicker {
+  0%   { transform: translateX(-50%) scale(1.00) rotate(-4deg); }
+  25%  { transform: translateX(-50%) scale(1.06) rotate(3deg); }
+  50%  { transform: translateX(-50%) scale(0.96) rotate(-2deg); }
+  75%  { transform: translateX(-50%) scale(1.04) rotate(2deg); }
+  100% { transform: translateX(-50%) scale(1.00) rotate(-1deg); }
+}
+
+/* Subtle water refraction on the raindrop surface */
+.mark-base::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 38% 32%, rgba(255,255,255,0.14), transparent 65%);
+  pointer-events: none;
+  animation: refract 7s linear infinite;
+  opacity: 0.65;
+}
+
+@keyframes refract {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(3px, -4px); }
+}
+
+/* Keep your original glow, heat, shimmer */
 .mark-glow {
-position: absolute;
-inset: 15%;
-background: radial-gradient(circle, rgba(255,130,15,0.22), transparent 70%);
-filter: blur(18px);
-z-index: 1;
-animation: markglowpulse 5s ease-in-out 2.5s infinite;
-pointer-events: none;
+  position: absolute;
+  inset: 15%;
+  background: radial-gradient(circle, rgba(255,130,15,0.22), transparent 70%);
+  filter: blur(18px);
+  z-index: 1;
+  animation: markglowpulse 5s ease-in-out 2.5s infinite;
+  pointer-events: none;
 }
 @keyframes markglowpulse {
-0%,100% { opacity: 0.5; transform: scale(1); }
-50%     { opacity: 1;   transform: scale(1.08); }
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50%     { opacity: 1;   transform: scale(1.08); }
 }
 
-/* Heat shimmer above the flame tip */
 .mark-heat {
-position: absolute;
-top: -8%;
-left: 50%;
-width: 22%;
-height: 22%;
-transform: translateX(-50%);
-background: radial-gradient(circle, rgba(255,150,50,0.28), transparent);
-filter: blur(8px);
-z-index: 2;
-animation: heatrise 2.2s ease-in-out 2.5s infinite;
-pointer-events: none;
+  position: absolute;
+  top: -8%;
+  left: 50%;
+  width: 22%;
+  height: 22%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255,150,50,0.28), transparent);
+  filter: blur(8px);
+  z-index: 4;
+  animation: heatrise 2.2s ease-in-out 2.5s infinite;
+  pointer-events: none;
 }
 @keyframes heatrise {
-0%,100% { transform: translateX(-50%) scaleY(1);   opacity: 0.7; }
-50%     { transform: translateX(-50%) scaleY(1.3); opacity: 1; }
+  0%,100% { transform: translateX(-50%) scaleY(1);   opacity: 0.7; }
+  50%     { transform: translateX(-50%) scaleY(1.3); opacity: 1; }
 }
 
-/* Occasional shimmer sweep */
 .mark-shimmer {
-position: absolute;
-inset: 0;
-overflow: hidden;
-z-index: 4;
-pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 5;
+  pointer-events: none;
 }
 .mark-shimmer::before {
-content: “”;
-position: absolute;
-width: 25%;
-height: 100%;
-left: -40%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-transform: skewX(-20deg);
-animation: shimmerpass 9s ease-in-out 3s infinite;
+  content: “”;
+  position: absolute;
+  width: 25%;
+  height: 100%;
+  left: -40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transform: skewX(-20deg);
+  animation: shimmerpass 9s ease-in-out 3s infinite;
 }
 @keyframes shimmerpass {
-0%,65%,100% { left: -40%; opacity: 0; }
-68%         { opacity: 0.5; }
-78%         { left: 120%; opacity: 0; }
+  0%,65%,100% { left: -40%; opacity: 0; }
+  68%         { opacity: 0.5; }
+  78%         { left: 120%; opacity: 0; }
 }
 
 /* ── TITLE BLOCK ── */
 .title-block {
-text-align: center;
-margin-bottom: clamp(0.8rem, 2vw, 1.5rem);
-animation: rise 2.5s ease-out 0.5s forwards;
-opacity: 0;
+  text-align: center;
+  margin-bottom: clamp(0.8rem, 2vw, 1.5rem);
+  animation: rise 2.5s ease-out 0.5s forwards;
+  opacity: 0;
 }
 @keyframes rise {
-from { opacity: 0; transform: translateY(10px); }
-to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .saga-title {
-font-family: ‘Cinzel’, serif;
-font-size: clamp(1.5rem, 5.5vw, 3rem);
-font-weight: 600;
-color: #D4AF37;
-letter-spacing: 0.08em;
-line-height: 1.2;
-text-shadow:
-0 0 30px rgba(212,175,55,0.7),
-0 0 60px rgba(212,175,55,0.3),
-0 0 100px rgba(212,175,55,0.12);
-margin-bottom: 0.4rem;
+  font-family: ‘Cinzel’, serif;
+  font-size: clamp(1.5rem, 5.5vw, 3rem);
+  font-weight: 600;
+  color: #D4AF37;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-shadow:
+    0 0 30px rgba(212,175,55,0.7),
+    0 0 60px rgba(212,175,55,0.3),
+    0 0 100px rgba(212,175,55,0.12);
+  margin-bottom: 0.4rem;
 }
 
 .series-line {
-font-family: ‘Cinzel’, serif;
-font-size: clamp(0.6rem, 1.6vw, 0.8rem);
-letter-spacing: 0.4em;
-color: #B8962E;
-text-transform: uppercase;
+  font-family: ‘Cinzel’, serif;
+  font-size: clamp(0.6rem, 1.6vw, 0.8rem);
+  letter-spacing: 0.4em;
+  color: #B8962E;
+  text-transform: uppercase;
 }
 
 /* ── RULE ── */
 .rule {
-width: min(220px, 55vw);
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
-margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-animation: rulefade 2.5s ease-out 1s forwards;
-opacity: 0;
+  width: min(220px, 55vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.5), transparent);
+  margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
+  animation: rulefade 2.5s ease-out 1s forwards;
+  opacity: 0;
 }
 @keyframes rulefade {
-from { opacity: 0; }
-to   { opacity: 1; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ── ROTATING TAGLINE ── */
 .tagline-wrap {
-height: clamp(2.8rem, 6vw, 4rem);
-display: flex; align-items: center; justify-content: center;
-max-width: min(640px, 90vw);
-width: 100%;
-margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
-position: relative;
-opacity: 1;
-visibility: visible;
+  height: clamp(2.8rem, 6vw, 4rem);
+  display: flex; align-items: center; justify-content: center;
+  max-width: min(640px, 90vw);
+  width: 100%;
+  margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
+  position: relative;
 }
 
 .tagline {
-font-family: ‘EB Garamond’, Georgia, ‘Times New Roman’, serif;
-font-style: italic;
-font-size: clamp(1rem, 2.8vw, 1.35rem);
-color: #D4A843;
-text-align: center;
-letter-spacing: 0.02em;
-line-height: 1.4;
-position: absolute;
-width: min(640px, 90vw);
-opacity: 1;
-transform: translateY(0);
-transition: opacity 0.9s ease, transform 0.9s ease;
+  font-family: ‘EB Garamond’, Georgia, ‘Times New Roman’, serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
+  color: #D4A843;
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  position: absolute;
+  width: min(640px, 90vw);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 .tagline.leaving  { opacity: 0; transform: translateY(-12px); }
 .tagline.entering { opacity: 0; transform: translateY(12px); }
@@ -255,82 +321,81 @@ transition: opacity 0.9s ease, transform 0.9s ease;
 
 /* ── BOTTOM RULE ── */
 .rule2 {
-width: min(160px, 40vw);
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
-margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-animation: rulefade 2.5s ease-out 1.8s forwards;
-opacity: 0;
+  width: min(160px, 40vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  animation: rulefade 2.5s ease-out 1.8s forwards;
+  opacity: 0;
 }
 
 /* ── COMING SOON ── */
 .coming {
-text-align: center;
-animation: rise 2.5s ease-out 2s forwards;
-opacity: 0;
+  text-align: center;
+  animation: rise 2.5s ease-out 2s forwards;
+  opacity: 0;
 }
 
 .coming-label {
-font-family: ‘Cinzel’, serif;
-font-size: clamp(0.5rem, 1.3vw, 0.65rem);
-letter-spacing: 0.5em;
-color: rgba(210,160,60,0.9);
-text-transform: uppercase;
-margin-bottom: 0.4rem;
+  font-family: ‘Cinzel’, serif;
+  font-size: clamp(0.5rem, 1.3vw, 0.65rem);
+  letter-spacing: 0.5em;
+  color: rgba(210,160,60,0.9);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
 }
 
 .author-name {
-font-family: ‘EB Garamond’, Georgia, serif;
-font-size: clamp(0.9rem, 2.2vw, 1.1rem);
-color: rgba(220,170,70,0.85);
-letter-spacing: 0.1em;
-margin-bottom: 0.6rem;
+  font-family: ‘EB Garamond’, Georgia, serif;
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  color: rgba(220,170,70,0.85);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
 }
 
 .x-handle {
-display: block;
-font-family: ‘Cinzel’, serif;
-font-size: clamp(0.5rem, 1.3vw, 0.65rem);
-letter-spacing: 0.45em;
-color: rgba(210,160,60,0.85);
-text-transform: uppercase;
-text-decoration: none;
-transition: color 0.4s ease, letter-spacing 0.4s ease;
-margin-top: 0.3rem;
+  display: block;
+  font-family: ‘Cinzel’, serif;
+  font-size: clamp(0.5rem, 1.3vw, 0.65rem);
+  letter-spacing: 0.45em;
+  color: rgba(210,160,60,0.85);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.4s ease, letter-spacing 0.4s ease;
+  margin-top: 0.3rem;
 }
 .x-handle:hover {
-color: rgba(240,200,90,1);
-letter-spacing: 0.55em;
+  color: rgba(240,200,90,1);
+  letter-spacing: 0.55em;
 }
 
 /* ── EMBER SPARKS ── */
 .particles {
-position: fixed; inset: 0; z-index: 4;
-pointer-events: none; overflow: hidden;
+  position: fixed; inset: 0; z-index: 4;
+  pointer-events: none; overflow: hidden;
 }
 .ember {
-position: absolute;
-border-radius: 50%;
-animation: ember-rise linear infinite;
+  position: absolute;
+  border-radius: 50%;
+  animation: ember-rise linear infinite;
 }
 @keyframes ember-rise {
-0%   { transform: translateY(100vh) translateX(0)    scale(1);   opacity: 0; }
-8%   { opacity: 1; }
-50%  { transform: translateY(50vh)  translateX(30px)  scale(0.7); opacity: 0.7; }
-85%  { transform: translateY(15vh)  translateX(60px)  scale(0.3); opacity: 0.3; }
-100% { transform: translateY(-5vh)  translateX(80px)  scale(0.1); opacity: 0; }
+  0%   { transform: translateY(100vh) translateX(0)    scale(1);   opacity: 0; }
+  8%   { opacity: 1; }
+  50%  { transform: translateY(50vh)  translateX(30px)  scale(0.7); opacity: 0.7; }
+  85%  { transform: translateY(15vh)  translateX(60px)  scale(0.3); opacity: 0.3; }
+  100% { transform: translateY(-5vh)  translateX(80px)  scale(0.1); opacity: 0; }
 }
 .ember.left {
-animation-name: ember-rise-left;
+  animation-name: ember-rise-left;
 }
 @keyframes ember-rise-left {
-0%   { transform: translateY(100vh) translateX(0)     scale(1);   opacity: 0; }
-8%   { opacity: 1; }
-50%  { transform: translateY(50vh)  translateX(-30px) scale(0.7); opacity: 0.7; }
-85%  { transform: translateY(15vh)  translateX(-60px) scale(0.3); opacity: 0.3; }
-100% { transform: translateY(-5vh)  translateX(-80px) scale(0.1); opacity: 0; }
+  0%   { transform: translateY(100vh) translateX(0)     scale(1);   opacity: 0; }
+  8%   { opacity: 1; }
+  50%  { transform: translateY(50vh)  translateX(-30px) scale(0.7); opacity: 0.7; }
+  85%  { transform: translateY(15vh)  translateX(-60px) scale(0.3); opacity: 0.3; }
+  100% { transform: translateY(-5vh)  translateX(-80px) scale(0.1); opacity: 0; }
 }
-
 </style>
 </head>
 <body>
@@ -342,11 +407,21 @@ animation-name: ember-rise-left;
 
 <div class="stage">
 
-  <!-- THE MARK -->
-
+  <!-- THE IMPROVED MARK -->
   <div class="mark">
     <div class="mark-shell">
-      <img src="ne_mark.png" alt="Noah Elias — Water and Fire">
+      <!-- Your original raindrop PNG (water/glass shape) -->
+      <img src="ne_mark.png" alt="Noah Elias — Water and Fire" class="mark-base">
+
+      <!-- Realistic fire burning inside -->
+      <div class="fire-container">
+        <div class="flame outer"></div>
+        <div class="flame middle"></div>
+        <div class="flame inner"></div>
+        <div class="flame core"></div>
+      </div>
+
+      <!-- Original effects -->
       <div class="mark-glow"></div>
       <div class="mark-heat"></div>
       <div class="mark-shimmer"></div>
@@ -354,28 +429,23 @@ animation-name: ember-rise-left;
   </div>
 
   <!-- TITLE -->
-
   <div class="title-block">
     <h1 class="saga-title">A Saga of<br>Water and Fire</h1>
     <p class="series-line">Noah Elias</p>
   </div>
 
   <!-- DIVIDER -->
-
   <div class="rule"></div>
 
   <!-- ROTATING TAGLINE -->
-
   <div class="tagline-wrap">
     <p class="tagline visible" id="tagline">This is not the fairy tale you were told.</p>
   </div>
 
   <!-- SECOND RULE -->
-
   <div class="rule2"></div>
 
   <!-- COMING SOON -->
-
   <div class="coming">
     <p class="coming-label">Coming Soon</p>
     <p class="author-name">noahelias.org</p>
@@ -404,7 +474,6 @@ var current = 0;
 var rotationCount = 0;
 var el = document.getElementById('tagline');
 
-// Make sure first tagline is set
 el.textContent = taglines[0];
 el.className = 'tagline visible';
 
